@@ -36,7 +36,7 @@ func NewRouter(rtMart *rtMart.RTMart, s *shopping.Shopping) http.Handler {
 	shoppingRoute := r.Group("/shopping")
 	{
 		shoppingRoute.GET("/category", getShoppingCategory(s))
-		// shopping.GET("/product", getRtMartProduct(RTMart))
+		shoppingRoute.GET("/product", getShoppingProduct(s))
 	}
 
 	return r
