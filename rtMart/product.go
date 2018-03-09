@@ -2,6 +2,7 @@ package rtMart
 
 import (
 	"strconv"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/golang/glog"
@@ -56,7 +57,7 @@ func addProduct(s *goquery.Selection, products *Products) {
 	productsNew := []*Product{}
 	s.Find("h5 a").Each(func(j int, h *goquery.Selection) {
 		p := &Product{
-			Name: h.Text(),
+			Name: strings.TrimSpace(h.Text()),
 		}
 		productsNew = append(productsNew, p)
 	})
