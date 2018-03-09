@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	ginglog "github.com/szuecs/gin-glog"
 	"github.com/tony24681379/market-server/rtMart"
+	"github.com/tony24681379/market-server/shopping"
 )
 
 func headerMiddleware(c *gin.Context) {
@@ -17,7 +18,7 @@ func headerMiddleware(c *gin.Context) {
 }
 
 // NewRouter create a router
-func NewRouter(RTMart *rtMart.RTMart) http.Handler {
+func NewRouter(rtMart *rtMart.RTMart, s *shopping.Shopping) http.Handler {
 	r := gin.New()
 	r.Use(ginglog.Logger(3 * time.Second))
 	r.Use(gin.Recovery())
@@ -28,8 +29,14 @@ func NewRouter(RTMart *rtMart.RTMart) http.Handler {
 
 	rtMartRoute := r.Group("/rt-mart")
 	{
-		rtMartRoute.GET("/category", getRtMartCategory(RTMart))
-		rtMartRoute.GET("/product", getRtMartProduct(RTMart))
+		rtMartRoute.GET("/category", getRtMartCategory(rtMart))
+		rtMartRoute.GET("/product", getRtMartProduct(rtMart))
+	}
+
+	shoppingRoute := r.Group("/shopping")
+	{
+		shoppingRoute.GET("/category", getShoppingCategory(s))
+		// shopping.GET("/product", getRtMartProduct(RTMart))
 	}
 
 	return r

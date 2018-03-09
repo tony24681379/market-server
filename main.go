@@ -10,13 +10,15 @@ import (
 	"github.com/tony24681379/market-server/config"
 	"github.com/tony24681379/market-server/router"
 	"github.com/tony24681379/market-server/rtMart"
+	"github.com/tony24681379/market-server/shopping"
 )
 
 func main() {
 	configs := config.NewConfig()
 	rtMart := rtMart.NewRtMart()
+	shopping := shopping.NewShopping()
 
-	router := router.NewRouter(rtMart)
+	router := router.NewRouter(rtMart, shopping)
 
 	glog.Info("serve port", configs.Port)
 	server := &http.Server{
