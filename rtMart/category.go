@@ -2,6 +2,9 @@ package rtMart
 
 import (
 	"log"
+	"time"
+
+	"github.com/golang/glog"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -28,7 +31,18 @@ func NewRtMart() *RTMart {
 		Name: "RtMart",
 		Url:  "http://www.rt-mart.com.tw/direct/",
 	}
+	ticker := time.NewTicker(5 * time.Minute)
 	rtmark.TopCategories = rtmark.getCategory()
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				rtmark.TopCategories = rtmark.getCategory()
+				glog.Info("update rt-mart category")
+			}
+		}
+	}()
+
 	return rtmark
 }
 
