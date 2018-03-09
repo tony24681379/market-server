@@ -33,3 +33,27 @@ $ ./market-server
 ```
 $ govendor add +external
 ```
+
+### Get Rt-Mart category
+
+```
+GET 127.0.0.1:3000/rt-mart/category
+```
+
+### Get Rt-Mart product
+
+```
+GET 127.0.0.1:3000/rt-mart/product?category=氣泡礦泉水
+```
+
+### Get shopping category
+
+```
+GET 127.0.0.1:3000/shopping/category
+```
+
+### Get shopping product
+
+```
+GET 127.0.0.1:3000/rt-mart/product?category=蘇打餅乾
+```
